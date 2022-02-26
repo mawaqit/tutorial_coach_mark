@@ -17,15 +17,21 @@ class TutorialCoachMarkWidget extends StatefulWidget {
     this.alignSkip = Alignment.bottomRight,
     this.textSkip = "SKIP",
     this.onClickSkip,
+    this.alignNext = Alignment.bottomRight,
+    this.textNext = "SKIP",
+    this.onClickNext,
     this.colorShadow = Colors.black,
     this.opacityShadow = 0.8,
     this.textStyleSkip = const TextStyle(color: Colors.white),
+    this.textStyleNext = const TextStyle(color: Colors.white),
     this.hideSkip,
+    this.hideNext,
     this.focusAnimationDuration,
     this.pulseAnimationDuration,
     this.pulseVariation,
     this.pulseEnable = true,
     this.skipWidget,
+    this.nextWidget,
   })  : assert(targets.length > 0),
         super(key: key);
 
@@ -41,11 +47,17 @@ class TutorialCoachMarkWidget extends StatefulWidget {
   final String textSkip;
   final TextStyle textStyleSkip;
   final bool? hideSkip;
+  final Function()? onClickNext;
+  final AlignmentGeometry alignNext;
+  final String textNext;
+  final TextStyle textStyleNext;
+  final bool? hideNext;
   final Duration? focusAnimationDuration;
   final Duration? pulseAnimationDuration;
   final Tween<double>? pulseVariation;
   final bool pulseEnable;
   final Widget? skipWidget;
+  final Widget? nextWidget;
 
   @override
   TutorialCoachMarkWidgetState createState() => TutorialCoachMarkWidgetState();
@@ -97,7 +109,12 @@ class TutorialCoachMarkWidgetState extends State<TutorialCoachMarkWidget>
             duration: Duration(milliseconds: 300),
             child: _buildContents(),
           ),
-          _buildSkip()
+          Row(
+            children: [
+              _buildNext(),
+              _buildSkip(),
+            ],
+          )
         ],
       ),
     );
@@ -229,6 +246,34 @@ class TutorialCoachMarkWidgetState extends State<TutorialCoachMarkWidget>
                     Text(
                       widget.textSkip,
                       style: widget.textStyleSkip,
+                    ),
+              ),
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget _buildNext() {
+    if (widget.hideNext!) {
+      return SizedBox.shrink();
+    }
+    return Align(
+      alignment: currentTarget?.alignNext ?? widget.alignNext,
+      child: SafeArea(
+        child: AnimatedOpacity(
+          opacity: showContent ? 1 : 0,
+          duration: Duration(milliseconds: 300),
+          child: InkWell(
+            onTap: next,
+            child: Padding(
+              padding: const EdgeInsets.all(20.0),
+              child: IgnorePointer(
+                child: widget.nextWidget ??
+                    Text(
+                      widget.textNext,
+                      style: widget.textStyleNext,
                     ),
               ),
             ),
