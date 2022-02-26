@@ -110,6 +110,7 @@ class TutorialCoachMarkWidgetState extends State<TutorialCoachMarkWidget>
             child: _buildContents(),
           ),
           Row(
+            mainAxisAlignment: MainAxisAlignment.end,
             children: [
               _buildNext(),
               _buildSkip(),
