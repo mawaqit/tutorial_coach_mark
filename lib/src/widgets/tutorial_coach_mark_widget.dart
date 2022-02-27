@@ -241,7 +241,7 @@ class TutorialCoachMarkWidgetState extends State<TutorialCoachMarkWidget>
           child: InkWell(
             onTap: skip,
             child: Padding(
-              padding: const EdgeInsets.all(20.0),
+              padding: const EdgeInsets.all(16.0),
               child: IgnorePointer(
                 child: widget.skipWidget ??
                     Text(
@@ -269,7 +269,7 @@ class TutorialCoachMarkWidgetState extends State<TutorialCoachMarkWidget>
           child: InkWell(
             onTap: next,
             child: Padding(
-              padding: const EdgeInsets.all(20.0),
+              padding: const EdgeInsets.all(16.0),
               child: IgnorePointer(
                 child: widget.nextWidget ??
                     Text(
